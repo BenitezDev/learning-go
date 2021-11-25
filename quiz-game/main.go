@@ -4,19 +4,15 @@ import (
 	"flag"
 	"fmt"
 	"github.com/BenitezDev/learning-go/quiz-game/problems"
+	"strings"
 )
 
 func main() {
 
 	helpPtr := flag.Bool("h", false, "display help options")
 	csvPtr := flag.String("csv", "problems.csv", "a csv file in the format of 'question,answer' (default \"problems.csv\")")
-	limitPtr := flag.Int("limit", 30, "the time limit for the quiz in seconds (default 30)")
 
 	flag.Parse()
-
-	fmt.Println("help:", *helpPtr)
-	fmt.Println("csv:", *csvPtr)
-	fmt.Println("limit:", *limitPtr)
 
 	if *helpPtr {
 		fmt.Println("Usage of the quiz game:")
@@ -27,7 +23,32 @@ func main() {
 		return
 	}
 
-	qa, _ := problems.LoadProblemsFromCSV(*csvPtr)
-	fmt.Println(qa)
+	qa, err := problems.LoadProblemsFromCSV(*csvPtr)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	totalQuestions := len(qa)
+
+	hits := 0
+	var input string
+
+	for i := 0; i < totalQuestions; i++ {
+
+		fmt.Print(qa[i].Question, "=")
+
+		_, _ = fmt.Scanln(&input)
+
+		if strings.Compare(qa[i].Answer, input) == 0 {
+			hits++
+			fmt.Print("  Correct!")
+		} else {
+			fmt.Print("  Incorrect!")
+		}
+
+		fmt.Println(" (", hits, "/", totalQuestions, ") hits")
+		input = ""
+	}
 
 }
