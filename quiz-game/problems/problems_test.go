@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-var defaultNameCSV = "problems.csv"
+var defaultNameCSV = "../problems.csv"
 var defaultContentCSV = problems.Problems{
 	problems.Problem{Question: "5+5", Answer: "10"},
 	problems.Problem{Question: "7+3", Answer: "10"},
