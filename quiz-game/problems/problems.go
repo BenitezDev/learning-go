@@ -1,7 +1,9 @@
 package problems
 
 import (
-	"io/fs"
+	"encoding/csv"
+	"fmt"
+	"os"
 )
 
 type Problem struct {
@@ -9,13 +11,29 @@ type Problem struct {
 	Answer   string
 }
 
+func (p Problem) String() string { return fmt.Sprintf("%s %s", p.Question, p.Answer) }
+
 type Problems []Problem
 
-func LoadProblemsFromCSV(fileSystem fs.FS) Problems {
-	dir, _ := fs.ReadDir(fileSystem, ".")
-	var problems Problems
-	for range dir {
-		problems = append(problems, Problem{})
+func LoadProblemsFromCSV(csvPath string) (Problems, error) {
+
+	csvFile, err := os.Open(csvPath)
+	if err != nil {
+		return nil, err
 	}
-	return problems
+
+	csvLines, err := csv.NewReader(csvFile).ReadAll()
+	if err != nil {
+		return nil, err
+	}
+
+	var problems Problems
+	for _, line := range csvLines {
+		p := Problem{Question: line[0], Answer: line[1]}
+		problems = append(problems, p)
+
+	}
+
+	return problems, nil
+
 }
