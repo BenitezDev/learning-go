@@ -40,7 +40,7 @@ func AskUser(p *Problem, index *int, ch chan bool) {
 func main() {
 
 	helpPtr := flag.Bool("h", false, "display help options")
-	csvPtr := flag.String("csv", "problems.csv", "a csv file in the format of 'question,answer' (default \"problems.csv\")")
+	csvPtr := flag.String("csv", "../problems.csv", "a csv file in the format of 'question,answer' (default \"problems.csv\")")
 	limitPtr := flag.Int("limit", 30, "the time limit for the quiz in seconds (default 30)")
 
 	flag.Parse()
