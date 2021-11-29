@@ -1,3 +1,3 @@
-module github.com/BenitezDev/learning-go/quiz-game/Part_1
+module github.com/BenitezDev/learning-go/quiz-game
 
 go 1.17

@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	. "github.com/BenitezDev/learning-go/quiz-game/Part_2/problems"
+	. "github.com/BenitezDev/learning-go/quiz-game/problems"
 	"strings"
 	"time"
 )
